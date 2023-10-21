@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontSize: 16, color: Colors.black),
           ),
         ),
-        body: _dataSeat.data == null || _dataSeat.data.length <= 0
+        body: _dataSeat.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,11 +34,11 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 70),
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 15,
-                      itemCount: _dataSeat.data[0]['rows'].length,
+                      itemCount: _dataSeat.data['rows'].length,
                       itemBuilder: (context, rowsIndex) {
                         return Center(
                           child: Text(
-                            "${_dataSeat.data[0]['rows'][rowsIndex]}",
+                            "${_dataSeat.data['rows'][rowsIndex]}",
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black,
@@ -53,13 +53,12 @@ class HomeScreen extends StatelessWidget {
                         width: 10,
                       ),
                       Column(
-                        children:
-                            List.generate(_dataSeat.data[0]['columns'].length,
-                                ((columnsIndex) {
+                        children: List.generate(
+                            _dataSeat.data['columns'].length, ((columnsIndex) {
                           return Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
-                              "${_dataSeat.data[0]['columns'][columnsIndex]}",
+                              "${_dataSeat.data['columns'][columnsIndex]}",
                               style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.black,
@@ -73,22 +72,23 @@ class HomeScreen extends StatelessWidget {
                             crossAxisCount: 5,
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            padding: const EdgeInsets.only(left: 20, right: 70),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 70, bottom: 10, top: 10),
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 15,
-                            itemCount: _dataSeat.data[0]['seats'].length,
+                            itemCount: _dataSeat.data['seats'].length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  _dataSeat.selected(
-                                      _dataSeat.data[0]['seats'][index]);
+                                  _dataSeat
+                                      .selected(_dataSeat.data['seats'][index]);
                                 },
                                 child: Container(
                                   width: 35,
                                   height: 45,
                                   decoration: BoxDecoration(
                                       color: _dataSeat.seatBookingList.contains(
-                                              _dataSeat.data[0]['seats'][index])
+                                              _dataSeat.data['seats'][index])
                                           ? Colors.orange
                                           : Colors.grey[400],
                                       borderRadius: BorderRadius.circular(5)),
@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, i) {
                           return Container(
                             width: 50,
-                            height: 22,
+                            height: 25,
                             decoration: BoxDecoration(
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(6)),
@@ -143,8 +143,8 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    _dataSeat.selected(
-                                        _dataSeat.seatBookingList[i]);
+                                    _dataSeat
+                                        .selected(_dataSeat.seatBookingList[i]);
                                   },
                                   child: const Icon(
                                     Icons.close,
