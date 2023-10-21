@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_final_fields, unused_field, no_leading_underscores_for_local_identifiers, unused_local_variable, unused_import
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:booking_seats_app/provider/seat_provider.dart';
