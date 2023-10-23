@@ -57,11 +57,6 @@ class SeatProvider with ChangeNotifier {
         numColumns, (index) => String.fromCharCode(65 + index));
   }
 
-  void setIsLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-
   get data => _data;
   get seatBookingList => _seatBookingList;
   bool get isLoading => _isLoading;
